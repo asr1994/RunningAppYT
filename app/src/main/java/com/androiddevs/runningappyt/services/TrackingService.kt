@@ -75,11 +75,12 @@ class TrackingService : LifecycleService() {
 
                     } else {
                         Timber.d("Service resumed")
+                        startForegroundService()
                     }
                 }
 
                 ACTION_PAUSE_SERVICE -> {
-                    Timber.d("Service paused")
+                    pauseTracking()
                 }
 
                 ACTION_STOP_SERVICE -> {
@@ -89,6 +90,10 @@ class TrackingService : LifecycleService() {
         }
 
         return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun pauseTracking() {
+        isTracking.postValue(false)
     }
 
     private val locationCallback = object : LocationCallback() {
