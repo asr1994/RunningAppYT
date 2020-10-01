@@ -100,6 +100,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
             val option = PolylineOptions()
                 .color(POLYLINE_COLOR)
                 .width(POLYLINE_WIDTH)
+                .geodesic(true)
                 .addAll(polyline)
             map?.addPolyline(option)
         }
@@ -113,9 +114,9 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
             val polylineOptions = PolylineOptions()
                 .color(POLYLINE_COLOR)
                 .width(POLYLINE_WIDTH)
+                .geodesic(true)
                 .add(preLastPoint)
                 .add(lastPoint)
-
             map?.addPolyline(polylineOptions)
         }
     }
