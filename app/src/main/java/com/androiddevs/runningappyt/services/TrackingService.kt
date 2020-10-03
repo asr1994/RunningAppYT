@@ -57,8 +57,10 @@ class TrackingService : LifecycleService() {
     private lateinit var client: FusedLocationProviderClient
 
     private fun postInitialValues() {
-        isTracking.postValue(false)
-        pathPoints.postValue(mutableListOf())
+        isTracking.value = false
+        pathPoints.value = mutableListOf()
+        timeRunInSeconds.value = 0L
+        timeRunInMillis.value = 0L
     }
 
     override fun onCreate() {
@@ -104,7 +106,7 @@ class TrackingService : LifecycleService() {
 
     private fun startTimer() {
         addEmptyPolyline()
-        isTracking.postValue(true)
+        isTracking.value = true
         timeStarted = System.currentTimeMillis()
         isTimerEnabled = true
 
