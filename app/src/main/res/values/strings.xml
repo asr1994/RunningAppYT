@@ -9,4 +9,5 @@
     </string-array>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDlFiU3yqTwMMmXiCc-XMUtlqwGBxBCxro</string>
+    <string name="action_cancel_run">Cancel Run</string>
 </resources>

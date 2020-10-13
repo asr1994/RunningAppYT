@@ -46,6 +46,7 @@ typealias Polylines = MutableList<Polyline>
 class TrackingService : LifecycleService() {
 
     var isFirstRun = true
+    var serviceKilled = false
 
     private val timeRunInSeconds = MutableLiveData<Long>()
 
@@ -100,12 +101,21 @@ class TrackingService : LifecycleService() {
                 }
 
                 ACTION_STOP_SERVICE -> {
-                    Timber.d("Service stopped")
+                    killService()
                 }
             }
         }
 
         return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun killService() {
+        serviceKilled = true
+        isFirstRun = true
+        pauseTracking()
+        postInitialValues()
+        stopForeground(true)
+        stopSelf()
     }
 
     private var isTimerEnabled = false
@@ -180,10 +190,12 @@ class TrackingService : LifecycleService() {
             set(curNotificationBuilder, ArrayList<NotificationCompat.Action>())
         }
 
-        curNotificationBuilder = baseNotificationBuilder
-            .addAction(R.drawable.ic_pause_black_24dp, actionText, actionPendingIntent)
+        if (!serviceKilled) {
+            curNotificationBuilder = baseNotificationBuilder
+                .addAction(R.drawable.ic_pause_black_24dp, actionText, actionPendingIntent)
 
-        notificationManager.notify(NOTIFICATION_ID, curNotificationBuilder.build())
+            notificationManager.notify(NOTIFICATION_ID, curNotificationBuilder.build())
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -234,10 +246,12 @@ class TrackingService : LifecycleService() {
         startForeground(NOTIFICATION_ID, baseNotificationBuilder.build())
 
         timeRunInSeconds.observe(this, {
-            val notification = curNotificationBuilder
-                .setContentText(TrackingUtility.getFormattedStopWatchText(it * 1000))
-                .build()
-            notificationManager.notify(NOTIFICATION_ID, notification)
+            if (!serviceKilled) {
+                val notification = curNotificationBuilder
+                    .setContentText(TrackingUtility.getFormattedStopWatchText(it * 1000))
+                    .build()
+                notificationManager.notify(NOTIFICATION_ID, notification)
+            }
         })
     }
 
