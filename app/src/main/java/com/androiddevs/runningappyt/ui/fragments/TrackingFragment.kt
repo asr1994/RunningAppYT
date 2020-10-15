@@ -195,8 +195,7 @@ class TrackingFragment : Fragment(R.layout.fragment_tracking) {
                 distanceInMeters += TrackingUtility.calculatePolylineLength(polyline).toInt()
             }
 
-            val avgSpeed =
-                round((distanceInMeters / 1000f) / (currentMillis / 1000 / 60 / 60) * 10) / 10
+            val avgSpeed = round((distanceInMeters / 1000f) / (currentMillis / 1000f / 60 / 60) * 10) / 10f
             val dateTimestamp = Calendar.getInstance().timeInMillis
             val caloriesBurned = ((distanceInMeters / 1000f) * weight).toInt()
 
