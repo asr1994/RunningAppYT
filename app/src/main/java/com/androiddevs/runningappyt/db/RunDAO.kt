@@ -1,11 +1,11 @@
 package com.androiddevs.runningappyt.db
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RunDAO {
@@ -16,29 +16,29 @@ interface RunDAO {
     suspend fun deleteRun(run: Run)
 
     @Query("SELECT * FROM tbl_running ORDER BY timestamp DESC")
-    fun getAllRunsSortedByDate(): LiveData<List<Run>>
+    fun getAllRunsSortedByDate(): Flow<List<Run>>
 
     @Query("SELECT * FROM tbl_running ORDER BY distanceInMeters DESC")
-    fun getAllRunsSortedByDistance(): LiveData<List<Run>>
+    fun getAllRunsSortedByDistance(): Flow<List<Run>>
 
     @Query("SELECT * FROM tbl_running ORDER BY caloriesBurned DESC")
-    fun getAllRunsSortedByCaloriesBurned(): LiveData<List<Run>>
+    fun getAllRunsSortedByCaloriesBurned(): Flow<List<Run>>
 
     @Query("SELECT * FROM tbl_running ORDER BY timeInMillis DESC")
-    fun getAllRunsSortedByTimeInMillis(): LiveData<List<Run>>
+    fun getAllRunsSortedByTimeInMillis(): Flow<List<Run>>
 
     @Query("SELECT * FROM tbl_running ORDER BY avgSpeedInKMH DESC")
-    fun getAllRunsSortedByAvgSpeed(): LiveData<List<Run>>
+    fun getAllRunsSortedByAvgSpeed(): Flow<List<Run>>
 
     @Query("SELECT SUM(timeInMillis) FROM tbl_running")
-    fun getTotalTimeInMillis(): LiveData<Long>
+    fun getTotalTimeInMillis(): Flow<Long>
 
     @Query("SELECT SUM(caloriesBurned) FROM tbl_running")
-    fun getTotalCaloriesBurned(): LiveData<Int>
+    fun getTotalCaloriesBurned(): Flow<Int>
 
     @Query("SELECT SUM(distanceInMeters) FROM tbl_running")
-    fun getTotalDistance(): LiveData<Int>
+    fun getTotalDistance(): Flow<Int>
 
     @Query("SELECT AVG(avgSpeedInKMH) FROM tbl_running")
-    fun getTotalAvgSpeed(): LiveData<Float>
+    fun getTotalAvgSpeed(): Flow<Float>
 }
