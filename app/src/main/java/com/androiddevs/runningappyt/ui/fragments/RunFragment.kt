@@ -25,7 +25,9 @@ class RunFragment : Fragment(R.layout.fragment_run), EasyPermissions.PermissionC
 
     private val viewModel: MainViewModel by viewModels()
 
-    private val adapter = RunsAdapter()
+    private val adapter = RunsAdapter {
+        viewModel.delete(it)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

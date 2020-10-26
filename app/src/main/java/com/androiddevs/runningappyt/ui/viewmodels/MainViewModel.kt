@@ -33,6 +33,12 @@ class MainViewModel @ViewModelInject constructor(
         }
     }
 
+    fun delete(run: Run) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteRun(run)
+        }
+    }
+
     fun sort(type: SortType) {
         sortType.value = type
     }

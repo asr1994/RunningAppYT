@@ -14,7 +14,9 @@ import kotlinx.android.synthetic.main.item_run.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RunsAdapter : ListAdapter<Run, RunsAdapter.RunViewHolder>(object : DiffUtil.ItemCallback<Run>(){
+class RunsAdapter(
+    private val onDeleteItem: (run: Run) -> Unit
+) : ListAdapter<Run, RunsAdapter.RunViewHolder>(object : DiffUtil.ItemCallback<Run>(){
     override fun areItemsTheSame(oldItem: Run, newItem: Run): Boolean {
         return oldItem.id == newItem.id
     }
@@ -25,6 +27,12 @@ class RunsAdapter : ListAdapter<Run, RunsAdapter.RunViewHolder>(object : DiffUti
 }){
 
     inner class RunViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            itemView.findViewById<View>(R.id.btnDelete).setOnClickListener {
+                onDeleteItem(getItem(adapterPosition))
+            }
+        }
 
         fun bind(run: Run) {
             itemView.apply {
