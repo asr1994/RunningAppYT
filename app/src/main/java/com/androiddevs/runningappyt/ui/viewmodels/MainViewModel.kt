@@ -3,13 +3,15 @@ package com.androiddevs.runningappyt.ui.viewmodels
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.androiddevs.runningappyt.db.Run
+import com.androiddevs.runningappyt.di.KeyWeight
 import com.androiddevs.runningappyt.other.SortType
 import com.androiddevs.runningappyt.repository.MainRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainViewModel @ViewModelInject constructor(
-    private val repository: MainRepository
+    private val repository: MainRepository,
+    @KeyWeight val weight: Float
 ) : ViewModel() {
 
     private val runsSortedByDate = repository.getAllRunsSortedByDate()
