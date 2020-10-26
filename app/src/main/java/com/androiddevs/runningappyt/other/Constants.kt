@@ -12,6 +12,11 @@ object Constants {
     const val ACTION_STOP_SERVICE = "ACTION_STOP_SERVICE"
     const val ACTION_NAVIGATE_TO_TRACKING_FRAGMENT = "ACTION_NAVIGATE_TO_TRACKING_FRAGMENT"
 
+    const val SHARED_PREFS_NAME = "running_sharedPrefs"
+    const val KEY_NAME = "shared_prefs_key_name"
+    const val KEY_WEIGHT = "shared_prefs_key_weight"
+    const val KEY_FIRST_TIME_TOGGLE = "shared_prefs_key_first_time_toggle"
+
     const val TIMER_DELAY_INTERVAL = 50L
 
     const val UPDATE_LOCATION_INTERVAL = 5000L
