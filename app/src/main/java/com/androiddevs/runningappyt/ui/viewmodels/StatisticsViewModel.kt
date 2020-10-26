@@ -27,4 +27,6 @@ class StatisticsViewModel @ViewModelInject constructor(
         TrackingUtility.getFormattedStopWatchText(it)
     }
 
+    val runsSortedByDate = repository.getAllRunsSortedByDate()
+
 }
