@@ -30,7 +30,7 @@ class MainViewModel @ViewModelInject constructor(
             SortType.DISTANCE -> runsSortedByDistance
             SortType.RUNNING_TIME -> runsSortedByTimeInMillis
             else -> runsSortedByDate
-        }
+        }.asLiveData()
     }
 
     fun delete(run: Run) {
